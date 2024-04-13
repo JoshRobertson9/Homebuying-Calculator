@@ -112,16 +112,34 @@ def plottable_data(principal, annual_interest_rate, loan_term_years,mortgage_rat
 
         remaining_balance -= p
 
+        # 0
         monthly_interest_payment.append(i)
+        # 1
         monthly_principal_payment.append(p)
+        # 2
         monthly_total_payment.append(i+p)
+        # 3
         months.append(n+1)
+        # 4
         monthly_total_equity.append(sum(monthly_principal_payment))
+        # 5
         monthly_total_spend.append(sum(monthly_interest_payment)+sum(monthly_principal_payment))
+        # 6
         monthly_total_interest_spend.append(sum(monthly_interest_payment))
 
 
-    return monthly_interest_payment, monthly_principal_payment, monthly_total_payment, months, monthly_total_equity, monthly_total_spend, monthly_total_interest_spend
+    pd = [
+        monthly_interest_payment,
+        monthly_principal_payment,
+        monthly_total_payment,
+        months,
+        monthly_total_equity,
+        monthly_total_spend,
+        monthly_total_interest_spend
+        ]
+
+    #return monthly_interest_payment, monthly_principal_payment, monthly_total_payment, months, monthly_total_equity, monthly_total_spend, monthly_total_interest_spend
+    return pd
 
 
 

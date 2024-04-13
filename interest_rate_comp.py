@@ -16,10 +16,13 @@ def rate_comp_plots(home_price, down_payment, interest_rate, interest_rate2, loa
 
 
     # Plottable Data
-    mip, mpp, mtp, months, mte, mts, mtis = hf.plottable_data(loan_amount, interest_rate, loan_term, mortgage_rate)
+    pd1 = hf.plottable_data(loan_amount, interest_rate, loan_term, mortgage_rate)
+    
+    mip, mpp, mtp, months, mte, mts, mtis = pd1
 
-    mip2, mpp2, mtp2, months2, mte2, mts2, mtis2 = hf.plottable_data(loan_amount, interest_rate2, loan_term, mortgage_rate2)
-
+    pd2 = hf.plottable_data(loan_amount, interest_rate2, loan_term, mortgage_rate2)
+     
+    mip2, mpp2, mtp2, months2, mte2, mts2, mtis2 = pd2
 
     # Plotting
 
