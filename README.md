@@ -1,10 +1,9 @@
 # Homebuying-Calculator
 Various tools I am building to better understand and visualize homebuying cost and trade-offs.
 
-This is still a work in progress.
+Features are still beign added and updated.
 
-Making use of matplotlib.
-
+Making use of matplotlib to display the results.
 
 
 Features to Add
