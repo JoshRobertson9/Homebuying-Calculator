@@ -8,6 +8,8 @@ Making use of matplotlib to display the results.
 
 Features to Add
 
+    Adding unit testing
+    
     Plot of amortization. Showing how much is interest vs equity.
 
     Plot of various options over a time line
