@@ -90,15 +90,16 @@ def mortgage_rate_calc(home_price, down_payment, interest_rate, loan_term):
 
 
 # Interest and Principal payment calculation for an amortization schedule
-def interest_payment(current_balance,rate,term,mortgage_rate):
+def interest_payment(current_balance, rate, term, mortgage_rate):
     
-    ip = current_balance * ((rate/100)/12)
+    monthly_interest_payment = current_balance * ((rate/100)/12)
 
-    pp = mortgage_rate - ip
+    monthly_principal_payment = mortgage_rate - monthly_interest_payment
 
-    pp =  (((current_balance * ((rate/100)/12))*((1 + (rate/100)/12)**(term*12))) / (   (1 + ((rate/100)/12))**(term*12)  -1    ) )   - ip
+    # The long way to calculate the above.
+    # monthly_principal_payment =  (((current_balance * ((rate/100)/12))*((1 + (rate/100)/12)**(term*12))) / ((1 + ((rate/100)/12))**(term*12)-1))  - monthly_interest_payment
 
-    return ip, pp
+    return monthly_interest_payment, monthly_principal_payment
 
 
 # Plottable Data
@@ -116,25 +117,24 @@ def plottable_data(principal, annual_interest_rate, loan_term_years,mortgage_rat
 
     for n in range((loan_term_years*12)):
 
-        i,p = interest_payment(remaining_balance,annual_interest_rate,loan_term_years-(n/12),mortgage_rate)
+        ip,pp = interest_payment(remaining_balance,annual_interest_rate,loan_term_years-(n/12),mortgage_rate)
 
-        remaining_balance -= p
+        remaining_balance -= pp
 
-        # 0
-        monthly_interest_payment.append(i)
-        # 1
-        monthly_principal_payment.append(p)
-        # 2
-        monthly_total_payment.append(i+p)
-        # 3
+        # Appending
+        monthly_interest_payment.append(ip)
+
+        monthly_principal_payment.append(pp)
+
+        monthly_total_payment.append(ip + pp)
+
         months.append(n+1)
-        # 4
-        monthly_total_equity.append(sum(monthly_principal_payment))
-        # 5
-        monthly_total_spend.append(sum(monthly_interest_payment)+sum(monthly_principal_payment))
-        # 6
-        monthly_total_interest_spend.append(sum(monthly_interest_payment))
 
+        monthly_total_equity.append(sum(monthly_principal_payment))
+
+        monthly_total_spend.append(sum(monthly_interest_payment)+sum(monthly_principal_payment))
+
+        monthly_total_interest_spend.append(sum(monthly_interest_payment))
 
     pd = [
         monthly_interest_payment,
