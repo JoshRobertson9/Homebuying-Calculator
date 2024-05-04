@@ -71,12 +71,20 @@ def home_buy_cli():
 
 # Mortgage Rate Calculation
 def mortgage_rate_calc(home_price, down_payment, interest_rate, loan_term):
+    # Assumptions that should be handled by earlier inputs
+        # All values are greater than 0.
+        # All values are numbers.
+        # home_price >= down_payment.
 
-    numerator = (interest_rate/1200)*((1+(interest_rate/1200))**(12*loan_term))
+    if interest_rate == 0:
+        mortgage_rate = (home_price - down_payment) / (12*loan_term)
+        
+    else :
+        numerator = (interest_rate/1200)*((1+(interest_rate/1200))**(12*loan_term))
 
-    denominator = ((1+(interest_rate/1200))**(12*loan_term)) - 1
-
-    mortgage_rate = (home_price - down_payment) * (numerator / denominator)
+        denominator = ((1+(interest_rate/1200))**(12*loan_term)) - 1
+    
+        mortgage_rate = (home_price - down_payment) * (numerator / denominator)
 
     return mortgage_rate
 
@@ -140,10 +148,4 @@ def plottable_data(principal, annual_interest_rate, loan_term_years,mortgage_rat
 
     #return monthly_interest_payment, monthly_principal_payment, monthly_total_payment, months, monthly_total_equity, monthly_total_spend, monthly_total_interest_spend
     return pd
-
-
-
-
-
-
 
