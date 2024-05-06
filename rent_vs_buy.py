@@ -88,7 +88,7 @@ def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly
     down_payment_growth = down_payment * 1.08**total_time_years
 
     # Buy Help
-    # I saw 3.8% but rounded it down some
+    # I saw 3.8% but rounded it down some to 3.5%
     house_appreciation = (home_price * (1.035**total_time_years)) - home_price
     print(f"House appreciation: {int(house_appreciation)}")
 
