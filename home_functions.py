@@ -1,8 +1,11 @@
 from matplotlib import pyplot as plt
-
+import locale
 
 # Homebuying inputs received through the command-line interface
 def home_buy_cli():
+
+    locale.setlocale(locale.LC_ALL, '')
+
     # Home Price
     while True:
         try:
@@ -10,7 +13,10 @@ def home_buy_cli():
             #home_price_comma = "{:,}".format(home_price)
             #print(home_price_comma)
             #print(f"Your home price is: ${home_price:.2f}")
-            print("Your home price is: $" + "{:,}".format(home_price))
+            # other print option
+            # print("Your home price is: $" + "{:,}".format(home_price))
+            formatted_home_price = locale.currency(home_price, grouping=True)
+            print("Your home price is:", formatted_home_price)
 
             break
         except ValueError:
@@ -45,7 +51,10 @@ def home_buy_cli():
 
     down_payment_percent = (down_payment/home_price)*100
 
-    print("Your down payment is: $" + "{:,}".format(down_payment) + ". Which is " + f"{down_payment_percent:.2f}"  + "%." )
+    # Old display option
+    #print("Your down payment is: $" + "{:,}".format(down_payment) + ". Which is " + f"{down_payment_percent:.2f}"  + "%." )
+    formatted_down_payment = locale.currency(down_payment, grouping=True)
+    print(f"Your down payment is: {formatted_down_payment}. Which is {down_payment_percent:.2f}%.")
 
     # Interest Rate
     while True:
@@ -148,4 +157,8 @@ def plottable_data(principal, annual_interest_rate, loan_term_years,mortgage_rat
 
     #return monthly_interest_payment, monthly_principal_payment, monthly_total_payment, months, monthly_total_equity, monthly_total_spend, monthly_total_interest_spend
     return pd
+
+
+if __name__ == "__main__":
+    home_buy_cli()
 
