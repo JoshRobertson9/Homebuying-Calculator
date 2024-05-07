@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 import locale
+from decimal import Decimal
 
 # Homebuying inputs received through the command-line interface
 def home_buy_cli():
@@ -9,7 +10,7 @@ def home_buy_cli():
     # Home Price
     while True:
         try:
-            home_price = float(input("How expensive of a home do you plan to buy? "))
+            home_price = Decimal(input("How expensive of a home do you plan to buy? "))
             #home_price_comma = "{:,}".format(home_price)
             #print(home_price_comma)
             #print(f"Your home price is: ${home_price:.2f}")
@@ -25,14 +26,14 @@ def home_buy_cli():
     # Downpayment
     while True:
         try:
-            choice_dp = float(input("Do you want provide the downpayment as an amount (option 1) or a percentage (option 2)? "))
+            choice_dp = Decimal(input("Do you want provide the downpayment as an amount (option 1) or a percentage (option 2)? "))
         except ValueError:
             choice_dp = 0
 
         # Downpayment as an amount
         if choice_dp == 1:
             try:
-                down_payment = float(input("How much downpayment do you want to put down as an amount? "))
+                down_payment = Decimal(input("How much downpayment do you want to put down as an amount? "))
                 break
             except:
                 print("Invalid input. Try again.")
@@ -40,7 +41,7 @@ def home_buy_cli():
         # Downpayment as a percentage
         elif choice_dp == 2:
             try:
-                down_payment = (float(input("how much downpayment do you want to put down as a percentage? ")) / 100) * home_price
+                down_payment = (Decimal(input("how much downpayment do you want to put down as a percentage? ")) / 100) * home_price
                 break
             except:
                 print("Invalid input. Try again.")
@@ -59,7 +60,7 @@ def home_buy_cli():
     # Interest Rate
     while True:
         try:
-            interest_rate = float(input("What interest rate do you have? (Ex. 7 for 7%) "))
+            interest_rate = Decimal(input("What interest rate do you have? (Ex. 7 for 7%) "))
             break
         except ValueError:
             print("Invalid input. Try again.")
@@ -88,6 +89,10 @@ def mortgage_rate_calc(home_price, down_payment, interest_rate, loan_term):
     if interest_rate == 0:
         mortgage_rate = (home_price - down_payment) / (12*loan_term)
         
+    elif loan_term == 0:
+        # Could improve the else eqn to just handle this scenario on its own
+        mortgage_rate = (home_price - down_payment)
+    
     else :
         numerator = (interest_rate/1200)*((1+(interest_rate/1200))**(12*loan_term))
 
@@ -161,4 +166,6 @@ def plottable_data(principal, annual_interest_rate, loan_term_years,mortgage_rat
 
 if __name__ == "__main__":
     home_buy_cli()
+
+
 
