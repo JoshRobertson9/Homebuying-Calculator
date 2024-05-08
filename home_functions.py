@@ -71,7 +71,7 @@ def home_buy_cli():
     # Term of the loan
     while True:
         try:
-            loan_term = int(input("What is the term of the loan that you are considering? "))
+            loan_term = int(input("What is the term of the loan that you are considering in years? "))
             print("Your loan term is: " + f"{loan_term}" + " years.")
             break
         except ValueError:
