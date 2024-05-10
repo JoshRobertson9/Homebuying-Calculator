@@ -3,7 +3,8 @@ from matplotlib.ticker import FuncFormatter
 
 import home_functions as hf
 from decimal import Decimal
-import locale
+
+from currency_format import currency_format
 
 # Rent vs Buy Notes
 # Solve for
@@ -30,13 +31,8 @@ What year do you break even
 
 def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly_rent,monthly_utilities,monthly_renters_insurance):
 
-    # Printing the result as currency
-    locale.setlocale(locale.LC_ALL, 'English_United States.1252')
-    conv = locale.localeconv()
-
-
     mortgage_rate = hf.mortgage_rate_calc(home_price, down_payment, interest_rate,total_time_years)
-    mr_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], mortgage_rate), grouping=True)
+    mr_str = currency_format(mortgage_rate)
     print(f"\nMortgage Rate: {mr_str}")
 
     total_time_months = 12 * total_time_years
@@ -51,7 +47,7 @@ def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly
         monthly_rent_growth = Decimal(1+(0.028/12))*monthly_rent_growth
 
 
-    mrg_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], monthly_rent_growth), grouping=True)
+    mrg_str = currency_format(monthly_rent_growth)
     print(f"\nFinal Rent: {mrg_str}")
 
     total_rent_cost = rent_sum + total_time_months * (monthly_utilities + monthly_renters_insurance)
@@ -79,14 +75,13 @@ def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly
     print("Just Costs and House Equity Assessment")
     print(f"Years: {total_time_years}")
 
-    trc_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], total_rent_cost), grouping=True)
+    trc_str = currency_format(total_rent_cost)
     print(f"Total Rent Cost: {trc_str}")
 
-    tbc_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], total_buy_cost), grouping=True)
+    tbc_str = currency_format(total_buy_cost)
     print(f"Total Buy Cost: {tbc_str}")
 
-    diff_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], abs(total_rent_cost - total_buy_cost)), grouping=True)
-    diff_str = "-" + diff_str if total_rent_cost - total_buy_cost < 0 else diff_str
+    diff_str = currency_format(total_rent_cost - total_buy_cost)
     print(f"Difference: {diff_str}")
     print()
 
@@ -97,11 +92,10 @@ def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly
     # I saw 3.8% but rounded it down some to 3.5%
     house_appreciation = (home_price * (Decimal(1.035)**total_time_years)) - home_price
 
-    ha_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], house_appreciation), grouping=True)
+    ha_str = currency_format(house_appreciation)
     print(f"House appreciation: {ha_str}")
 
-    bds_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], abs(buy_diff_sum)), grouping=True)
-    bds_str = "-" + bds_str if buy_diff_sum < 0 else bds_str
+    bds_str = currency_format(buy_diff_sum)
     print(f"buydiffsum: {bds_str}")
 
 
@@ -110,15 +104,15 @@ def rent_vs_buy(home_price, down_payment, interest_rate,total_time_years,monthly
     print(f"Total Money after {total_time_years} years")
 
     overall_rent_cost = (total_rent_cost - down_payment_growth - buy_diff_sum)
-    trs_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], overall_rent_cost ), grouping=True)
+    trs_str = currency_format(overall_rent_cost)
     print(f"Total Rent Scenario: {trs_str}")
 
     overall_buy_cost = (total_buy_cost - house_appreciation)
-    tbs_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], overall_buy_cost), grouping=True)
+    tbs_str = currency_format(overall_buy_cost)
     print(f"Total Buy Scenario: {tbs_str}")
 
-    total_diff_str = locale.format_string("%s%.*f", (conv['currency_symbol'], conv['frac_digits'], abs((total_rent_cost - down_payment_growth - buy_diff_sum) - (total_buy_cost - house_appreciation))), grouping=True)
-    total_diff_str = "-" + total_diff_str if ((total_rent_cost - down_payment_growth - buy_diff_sum) - (total_buy_cost - house_appreciation)) < 0 else total_diff_str
+    total_diff = (total_rent_cost - down_payment_growth - buy_diff_sum) - (total_buy_cost - house_appreciation)
+    total_diff_str = currency_format(total_diff)
     print(f"Difference: {total_diff_str}")
 
     # Bar Chart
