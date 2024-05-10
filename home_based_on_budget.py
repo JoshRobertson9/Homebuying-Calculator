@@ -1,4 +1,5 @@
-
+from decimal import Decimal
+from currency_format import currency_format
 
 def home_based_on_budget(monthly_budget, interest_rate, loan_term, down_payment, monthly_home_utilities, monthly_renters_insurance, monthly_avg_repair_and_maintenance):
 
@@ -29,9 +30,10 @@ def home_based_on_budget(monthly_budget, interest_rate, loan_term, down_payment,
        
     home_price =  [ mon_bug + [down_payment * (numerator / denominator)] ]    / ( (numerator / denominator) + property_tax)/12 )   
 
-    
-
     """
+
+
+
     # First version
     
     # Calculate how much you'd have left for your mortgage rate
@@ -56,7 +58,10 @@ def home_based_on_budget(monthly_budget, interest_rate, loan_term, down_payment,
     home_price = (mon_bug + (down_payment * nd)) / (nd + (0.036/12))
     """
 
+    mb_str = currency_format(monthly_budget)
+    hp_str = currency_format(home_price)
+
     print()
-    print(f"Based on a monthly budget of ${monthly_budget} you could afford a house worth ${round(home_price,2)} given your other provided parameters.")
+    print(f"Based on a monthly budget of {mb_str} you could afford a house worth {hp_str} given your other provided parameters.")
 
     return home_price
