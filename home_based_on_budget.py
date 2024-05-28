@@ -32,8 +32,6 @@ def home_based_on_budget(monthly_budget, interest_rate, loan_term, down_payment,
 
     """
 
-
-
     # First version
     
     # Calculate how much you'd have left for your mortgage rate

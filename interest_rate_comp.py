@@ -49,8 +49,8 @@ def rate_comp_plots(home_price, down_payment, interest_rate, interest_rate2, loa
             + "Interest Rate: " + f"{(interest_rate2):.2f}"  + "%\n"
             + "Loan Term: " + f"{loan_term} years")
     plt.plot(months2, mte2, 'b-', label="Cumulative House Equity")
-    plt.plot(months2, mts2, 'r-', label="Total Cumulative Payment Sunk Cost")
-    plt.plot(months, mtis2, 'g-', label="Total Interest Payment Sunk Cost")
+    plt.plot(months2, mts2, 'r-', label="Total Cumulative Payment")
+    plt.plot(months, mtis2, 'g-', label="Total Interest Payment (Sunk Cost)")
     plt.xlabel("Months")
     plt.ylabel("$")
     plt.legend()
