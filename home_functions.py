@@ -1,5 +1,11 @@
 import locale
 from decimal import Decimal
+from functools import lru_cache
+
+# Practicing with LruCache.
+# May not be too useful in this tool, but trying my first start to get it at least working
+@lru_cache(maxsize=10)
+
 
 # Homebuying inputs received through the command-line interface
 def home_buy_cli():
