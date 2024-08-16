@@ -1,4 +1,5 @@
 from decimal import Decimal
+#from functools import lru_cache
 
 import home_functions as hf
 from matplotlib import pyplot as plt
@@ -8,11 +9,11 @@ import home_based_on_budget as hbob
 
 def main():
     print("Hello Homebuying World\n")
-    print("What would you like to calculate for making a home purchase?")
-    print("1. Interest Rate Comparison")
+    print("What would you like to calculate regarding the home purchasing process?")
+    print("1. Interest Rate Comparison") # Make this a total two option comparison later! Not just by rate, add downpayment and mortgage and years too.
     print("2. Rent vs Buy")
     print("3. How much home can you afford based on your budget")
-    choice = int(input("Provide the number of the choice that you want: "))
+    choice = int(input("Provide the option number that you want: "))
     print()
 
     # CLI User input data
@@ -33,12 +34,15 @@ def main():
             # Interest Rate 2
             while True:
                 try:
-                    interest_rate2 = Decimal(input("What is the second interest rate that you have? (Ex. 7 for 7%) "))
+                    interest_rate2 = Decimal(input("What is the interest rate that you would like to compare it to? (Ex. 7 for 7%) "))
                     break
                 except ValueError:
                     print("Invalid input. Try again.")
 
             print("Your interest rate is: " + f"{interest_rate2:.2f}"  + "%.\n")
+
+
+
 
             print("Here are you comparison plots")
             irc.rate_comp_plots(home_price, down_payment, interest_rate, interest_rate2, loan_term)
@@ -66,6 +70,10 @@ def main():
             monthly_avg_repair_and_maintenance = 100 # At least this much
 
             home_price_afford = hbob.home_based_on_budget(monthly_budget, interest_rate, loan_term, down_payment, monthly_home_utilities, monthly_home_insurance, monthly_avg_repair_and_maintenance)
+        case _:
+            print("The option you selected does not exist. Please start over and try again.")
+
+
 
 if __name__ == "__main__":
     main()
